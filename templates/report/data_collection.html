@@ -1,0 +1,85 @@
+{% load admin_urls %}
+{% load extra_tags %}
+
+<div class="collected_items_container">
+<table id="collected_items">
+    <thead>
+    <tr>
+        <td scope="col" class="sortable column-client">
+            <div class="text column-client">Дилер</div>
+            <div class="clear"></div>
+        </td>
+        <td scope="col" class="sortable column-login">
+            <div class="text column-login">Логин</div>
+            <div class="clear"></div>
+        </td>
+        <td scope="col" class="sortable column-action">
+            <div class="text column-action">Вид операции</div>
+            <div class="clear"></div>
+        </td>
+        <td scope="col" class="sortable column-date action-count-total">
+            <div class="text action-count-total">Количество Итого</div>
+            <div class="clear"></div>
+        </td>
+        {% for period_item in dates_period_header %}
+            <td scope="col" class="sortable action-count-item {{ form.period_type.value|add_css_by_period }}">
+                <div class="text action-count-item {{ form.period_type.value|add_css_by_period }}">{{ period_item }}</div>
+                <div class="clear"></div>
+            </td>
+        {% endfor %}
+        <td width="*"></td>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for dealer_name, dealer_value in collection_set.iteritems %}
+        <tr class="row1">
+            <td class="column-client">
+                <div class="column-client">
+                    <a href="{% url 'admin:statistics_dealer_change' dealer_value.id %}" target="_blank">{{ dealer_name }}</a>
+                </div>
+            </td>
+            <td colspan="{{ dates_period_header|length|add:3 }}" style="padding:0">
+                <table>
+                {% for login_name, login_value in dealer_value.logins.iteritems %}
+                    {% for client_id, client_value in login_value.client_ids.iteritems %}
+                        <tr>
+                            <td class="column-login">
+                                <div class="column-login">
+                                    <a href="{% url 'admin:statistics_client_change' client_id %}" target="_blank">{{ login_name }}</a>
+                                </div>
+                            </td>
+                            <td style="padding:0">
+                                <table>
+                                    {% for action_name, action_value in client_value.actions.iteritems %}
+                                    <tr>
+                                        <td class="field-action action-name-cell">
+                                            <div class="action-name-cell">{{ action_name|default:"Неизвестно" }}</div></td>
+                                        <td class="field-action nowrap action-count-total">
+                                            <div class="text action-count-total">
+                                                {{ action_value.total_count }}
+                                            </div>
+                                        </td>
+                                        {% for count_in_period in action_value.details_count %}
+                                            <td class="field-action nowrap action-count-item {{ form.period_type.value|add_css_by_period }}">
+                                                <div class="text action-count-item {{ form.period_type.value|add_css_by_period }}">
+                                                    {{ count_in_period }}
+                                                </div>
+                                            </td>
+                                        {% endfor %}
+                                        <td width="*"></td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+                </table>
+            </td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+</div>

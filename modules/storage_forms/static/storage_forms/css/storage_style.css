@@ -1,0 +1,28 @@
+
+.saving_form_container {
+    float: right;
+}
+
+.stored-form-list{
+    position: absolute;
+    right: 50px !important;
+    top: 140px;
+    min-height: 200px;
+    max-height: 1020px;
+    width: 200px;
+    overflow-y:auto;
+    border: 1px solid #eee;
+}
+
+.stored-form-list p.active{
+    background: #79aec8;
+
+}
+.stored-form-list p{
+    line-height: 30px;
+    margin-top: .2em;
+    margin-bottom: .2em;
+}
+.stored-form-list p.active a, .stored-form-list p.active a:active, .stored-form-list p.active a:visited{
+    color: white !important;
+}

@@ -1,0 +1,10 @@
+<div class="module stored-form-list" id="recent-actions-module">
+    <h2>Сохраненные формы</h2>
+    {% for stored_form in stored_forms %}
+    <p class="{% if current_stored_form.pk == stored_form.pk %} active {% endif %}">
+        <a href="{% url stored_form.report_type %}?stored_form={{stored_form.pk}}">
+            {{ stored_form.name }}
+        </a>
+    </p>
+    {% endfor %}
+</div>

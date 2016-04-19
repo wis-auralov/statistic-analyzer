@@ -1,0 +1,12 @@
+django<1.10
+django-debug-toolbar<1.5
+django-simple-history<1.8
+gunicorn<20.0
+celery<3.2
+fabric
+psycopg2
+pycrypto
+ipython
+python-dateutil<3
+openpyxl
+django-picklefield==0.3.2

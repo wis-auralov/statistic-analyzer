@@ -1,0 +1,49 @@
+.collected_items_container{
+    width:100%;
+    border: 1px solid #DAD2D2;
+}
+.collected_items_container table{
+    width:100%;
+}
+.collected_items_container thead tr{
+    background-color: #ccc;
+    font-weight: bold;
+}
+.collected_items_container thead tr td{
+    vertical-align: middle;
+}
+
+.column-client{
+    width: 160px
+}
+.column-login{
+    width: 160px
+}
+.column-action {
+    width: 160px;
+    vertical-align: middle;
+}
+
+.action-name-cell{
+    width:160px
+}
+.action-count-item{
+    width: 90px;
+    text-align: center;
+    vertical-align: middle;
+}
+.action-count-total{
+    width: 160px;
+    text-align: center;
+}
+
+/* TODO: css используется тегом add_css_by_period */
+.by-day{
+    width: 70px !important;
+}
+.by-week{
+    width: 90px !important;
+}
+.by-month{
+    width: 100px !important;
+}

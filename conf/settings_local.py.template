@@ -1,0 +1,28 @@
+# -*- coding: utf-8 -*-
+
+DEBUG = None
+
+ADMINS = ()
+
+# Database
+# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
+
+LOCAL_DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'kmclient_statistics',
+        'USER': '',
+        'PASSWORD': '',
+    },
+    # БД для сохранения "сырой" статистики от КМ клиента
+    'raw_statistics': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'kmclient_statistics_raw',
+        'USER': '',
+        'PASSWORD': '',
+    },
+}
+
+BROKER_URL = ''
+
+AUTHORIZATION_ACTION_UUID = ''

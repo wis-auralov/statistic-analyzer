@@ -1,0 +1,63 @@
+{% extends "report/base.html" %}
+{% load static %}
+
+{% block extrahead %}
+    {{ block.super }}
+    {{ form.media }}
+{% endblock %}
+
+{% block breadcrumbs__curent_page %}Неактивные дилеры{% endblock %}
+
+{% block content %}
+    <form method="post" class="form-horizontal form-inline">
+        {% csrf_token %}
+        <div>
+            <fieldset class="module aligned">
+                {% for field in form %}
+                    <div class="form-row field-date">
+                        <div>
+                            {{ field.label_tag }}
+                            <p>{{ field }} {{ field.errors }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </fieldset>
+        </div>
+        <button name="action" value="view_HTML" class="search-btn" type="submit">Показать результат</button>
+        <button name="action" value="gen_XLSX" class="search-btn" type="submit">Сгенерировать XLSX</button>
+    </form>
+
+    <br/><br/>
+
+    <div class="collected_items_container">
+        <table id="collected_items">
+            <thead>
+                <tr>
+                    <td scope="col">Дилер</td>
+                    <td scope="col">Дилер UUID</td>
+                    <td scope="col">Клиент</td>
+                    <td scope="col">Клиент UUID</td>
+                </tr>
+            </thead>
+            <tbody>
+            {% for client in client_list %}
+                <tr class="row1">
+                    <td>
+                        <a href="{% url 'admin:statistics_dealer_change' client.dealer.id %}" target="_blank">{{ client.dealer }}</a>
+                    </td>
+                    <td>
+                        {{ client.dealer.uuid }}
+                    </td>
+                    <td>
+                        <a href="{% url 'admin:statistics_client_change' client.id %}" target="_blank">{{ client }}</a>
+                    </td>
+                    <td>
+                        {{ client.uuid }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

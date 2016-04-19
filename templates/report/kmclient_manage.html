@@ -1,0 +1,73 @@
+{% extends "report/base.html" %}
+{% load static %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'storage_forms/css/storage_style.css' %}"/>
+{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    {{ form.media }}
+    {{ formset.media }}
+{% endblock %}
+
+{% block breadcrumbs__curent_page %}Активные дилеры{% endblock %}
+
+{% block content %}
+    {% include 'widgets/stored_form_list.html' %}
+
+    <form method="post" class="form-horizontal form-inline">
+        {% csrf_token %}
+        <div>
+            <fieldset class="module aligned">
+                <div class="form-row field-date">
+                    <div>
+                        <label>События:</label>
+                        <div id="action_formset">
+                            {{ formset.management_form }}
+                            <script type="form-template" id="formset-empty-form">
+                                <ul class="action_form">
+                                    {{ formset.empty_form.as_ul }}
+                                    <button type="button" formset-delete-button>Удалить</button>
+                                </ul>
+                            </script>
+
+                            <div id="formset-body">
+                                {% for action_form in formset %}
+                                    <ul class="action_form">
+                                        {{ action_form.as_ul }}
+                                        {% if not forloop.first %}
+                                            <button type="button" formset-delete-button>Удалить</button>
+                                        {% endif %}
+                                    </ul>
+                                {% endfor %}
+                            </div>
+                            <input id="add-form" type="button" value="Добавить">
+                        </div>
+                    </div>
+                </div>
+
+                {% for field in form %}
+                    <div class="form-row field-date">
+                        <div>
+                            {{ field.label_tag }}
+                            <p>{{ field }} {{ field.errors }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </fieldset>
+        </div>
+        <button name="action" value="view_HTML" class="search-btn" type="submit">Показать результат</button>
+        <button name="action" value="gen_XLSX" class="search-btn" type="submit">Сгенерировать XLSX</button>
+
+        {% include 'widgets/stored_form_actions.html' %}
+
+    </form>
+
+    <br/><br/>
+
+    {% include 'report/data_collection.html' %}
+
+{% endblock %}

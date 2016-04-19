@@ -1,0 +1,16 @@
+<div class="saving_form_container">
+    <button name="action" value="save_form" class="search-btn" type="submit">
+        Сохранить форму
+        {% if current_stored_form %}
+        "{{ current_stored_form.name }}"
+        {% else %}
+        как ...
+        {% endif %}
+    </button>
+    {% if current_stored_form %}
+        <input type="hidden" value="{{ current_stored_form.pk }}" name="stored_form_pk" />
+        <button name="action" value="save_form_as_new" class="search-btn" type="submit">
+            Сохранить как новую форму
+        </button>
+    {% endif %}
+</div>
